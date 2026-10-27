@@ -30,6 +30,11 @@ _SKIP_DIR_NAMES = {"node_modules", ".vercel", ".git"}
 # NOTICE.md is repository documentation and is not deployed into the relay project.
 _SKIP_FILE_NAMES = {"NOTICE.md"}
 
+# The relay's Node manifest is stored in the repo as `package.json.relay` so the
+# container build (Python/FastAPI panel) is not misdetected as a Node app. Vercel
+# still requires the file to be named package.json, so it is renamed on upload.
+_RENAME_ON_UPLOAD = {"package.json.relay": "package.json"}
+
 
 class VercelError(RuntimeError):
     """Raised with a human-readable message safe to show the admin."""
